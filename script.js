@@ -17,13 +17,40 @@ function conditions() {
   };
 
   //prompts to ask user their conditions 
+  alert("Please choose you're password length between 8 and 128 characters" + "\nAt least one of the following conditions must be selected: \n\u2022Include lowercase characters \n\u2022Include uppercase characters \n\u2022Include numberic characters \n\u2022Include special characters");
+
   conditions.charLength = prompt("Please enter password length." + "\nMust be at least 8 characters and no more than 128 characters.");
-  conditions.lwr = prompt("Inlcude lowercase characters?" + "\nYes or No").toLowerCase();
-  conditions.upper = prompt("Inlcude uppercase characters?" + "\nYes or No").toLowerCase();
-  conditions.number = prompt("Inlcude numeric characters?" + "\nYes or No").toLowerCase();
-  conditions.special = prompt("Inlcude special characters?" + "\nYes or No").toLowerCase();
+  validateInput(conditions.charLength, 'number');
+
+  //asks conditions then validates through another function before returning result
+  conditions.lwr = validateInput(prompt("Inlcude lowercase characters?" + "\nYes or No").toLowerCase(), 'y/n');
+
+  conditions.upper = validateInput(prompt("Inlcude uppercase characters?" + "\nYes or No").toLowerCase(), 'y/n');
+ 
+  conditions.number = validateInput(prompt("Inlcude numeric characters?" + "\nYes or No").toLowerCase(), 'y/n');
+  
+
+  conditions.special = validateInput(prompt("Inlcude special characters?" + "\nYes or No").toLowerCase(), 'y/n');
+  
+  if(conditions.includes())
 
   return conditions;
+}
+
+function validateInput(input, answer) {
+  while(answer === 'number' && (input < 8 || input > 128)){
+    input = prompt("Incorrect input!" + "\nPlease enter password length." + "\nMust be at least 8 characters and no more than 128 characters.");
+    if(input == null)
+      return;
+  }
+
+  while(answer === 'y/n' && (input != 'yes' && input != 'no')){
+    input = prompt("Incorrect input!" + "\nPlease enter yes or no.").toLowerCase();
+    if(input == null)
+      return;
+  }
+
+  return input;
 }
 
 // Get references to the #generate element
