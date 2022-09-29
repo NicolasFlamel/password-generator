@@ -1,7 +1,7 @@
 // Assignment code here
 
 function generatePassword() {
-  var password;
+  var password = '';
   var pwConditions = conditions();
 
   //verify at least one condition was selected
@@ -11,7 +11,37 @@ function generatePassword() {
     return null;
   }
 
+  for(var i = 0; i < pwConditions.charLength; i++){
+    password = password + characterGeneration(pwConditions);
+  }
+
   return password;
+}
+
+function characterGeneration(pwConditions){
+  //make them into arrays
+  var char = []; //array of character choices
+  var lwrList = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  var upperList = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  var numberList = '0123456789'.split('');
+  var specialList = '!#"$%&\u0027()*+,-./:;<=>?@[\]^_`{|}~'.split('');
+
+  if(pwConditions.lwr == 'yes')
+    char.push(lwrList[Math.floor(Math.random() * lwrList.length)]);
+
+  if(pwConditions.upper == 'yes')
+    char.push(upperList[Math.floor(Math.random() * upperList.length)]);
+
+  if(pwConditions.number == 'yes')
+    char.push(numberList[Math.floor(Math.random() * numberList.length)]);
+
+  if(pwConditions.special == 'yes')
+    char.push(specialList[Math.floor(Math.random() * specialList.length)]);
+
+  //randomly pick from multiple options if selected
+  char[Math.floor(Math.random() * char.length)]
+
+  return char[Math.floor(Math.random() * char.length)];
 }
 
 function conditions() {
@@ -35,7 +65,6 @@ function conditions() {
   conditions.upper = validateInput(prompt("Inlcude uppercase characters?" + "\nYes or No").toLowerCase(), 'y/n');
  
   conditions.number = validateInput(prompt("Inlcude numeric characters?" + "\nYes or No").toLowerCase(), 'y/n');
-  
 
   conditions.special = validateInput(prompt("Inlcude special characters?" + "\nYes or No").toLowerCase(), 'y/n');
 
@@ -43,7 +72,7 @@ function conditions() {
 }
 
 function validateInput(input, answer) {
-  while(answer === 'number' && (input < 8 || input > 128)){
+  while(answer === 'number' && !(input >= 8 && input <= 128)){
     input = prompt("Incorrect input!" + "\nPlease enter password length." + "\nMust be at least 8 characters and no more than 128 characters.");
     if(input == null)
       return;
