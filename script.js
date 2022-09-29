@@ -2,7 +2,14 @@
 
 function generatePassword() {
   var password;
-  var tempConditions = conditions();
+  var pwConditions = conditions();
+
+  //verify at least one condition was selected
+  if(!Object.values(pwConditions).includes("yes")){
+    alert("At least one of the following conditions must be selected: \n\u2022Include lowercase characters \n\u2022Include uppercase characters \n\u2022Include numberic characters \n\u2022Include special characters\nPlease try again");
+
+    return null;
+  }
 
   return password;
 }
@@ -31,8 +38,6 @@ function conditions() {
   
 
   conditions.special = validateInput(prompt("Inlcude special characters?" + "\nYes or No").toLowerCase(), 'y/n');
-  
-  if(conditions.includes())
 
   return conditions;
 }
