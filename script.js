@@ -18,6 +18,7 @@ function generatePassword() {
   return password;
 }
 
+//generates random character depending on user conditions
 function characterGeneration(pwConditions){
   //make them into arrays
   var char = []; //array of character choices
@@ -44,6 +45,7 @@ function characterGeneration(pwConditions){
   return char[Math.floor(Math.random() * char.length)];
 }
 
+//asks user for pw conditions
 function conditions() {
   var conditions = {
     charLength: 8,  // character length for pw
@@ -56,10 +58,9 @@ function conditions() {
   //prompts to ask user their conditions 
   alert("Please choose you're password length between 8 and 128 characters" + "\nAt least one of the following conditions must be selected: \n\u2022Include lowercase characters \n\u2022Include uppercase characters \n\u2022Include numberic characters \n\u2022Include special characters");
 
-  conditions.charLength = prompt("Please enter password length." + "\nMust be at least 8 characters and no more than 128 characters.");
-  validateInput(conditions.charLength, 'number');
+   //asks conditions then validates through another function before returning result
+  conditions.charLength = validateInput(prompt("Please enter password length." + "\nMust be at least 8 characters and no more than 128 characters."), 'number');
 
-  //asks conditions then validates through another function before returning result
   conditions.lwr = validateInput(prompt("Inlcude lowercase characters?" + "\nYes or No").toLowerCase(), 'y/n');
 
   conditions.upper = validateInput(prompt("Inlcude uppercase characters?" + "\nYes or No").toLowerCase(), 'y/n');
